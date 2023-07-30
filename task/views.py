@@ -6,5 +6,6 @@ from django.views import View
 class IndexView(View):
     
     def get(self, request, *args, **kwargs):
-        template = 'base.html'
-        return render(request, template)
+        template = 'task/index.html'
+        context = {'title': 'Менеджер задач'}
+        return render(request, template, context)
