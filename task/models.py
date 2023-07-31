@@ -1,22 +1,32 @@
 from django.conf import settings
 from django.db import models
-
+from django.contrib.auth.models import User
+from django.db.models.signals import post_save
+from django.dispatch import receiver
 
 # Create your models here.
 
 
 class Profile(models.Model):
-    user = models.OneToOneField(settings.AUTH_USER_MODEL, 
+    user = models.OneToOneField(User, 
                                 on_delete=models.CASCADE,
                                 primary_key = True)
 
+
+    @receiver(post_save, sender=User)
+    def create_user_profile(sender, instance, created, **kwargs):
+        if created:
+            Profile.objects.create(user=instance)
+
+
+    def __str__(self) -> str:
+        return self.user.username
 
     class Meta:
         verbose_name = 'Пользователь'
         verbose_name_plural = 'Пользователи'
 
-    def __str__(self) -> str:
-        return self.username
+
     
 
 class Status(models.Model):
@@ -40,18 +50,35 @@ class Task(models.Model):
     description = models.TextField(verbose_name='Описание')
     owner = models.ForeignKey(Profile, 
                               on_delete=models.CASCADE,
-                              related_name='owner')
+                              related_name='owner',
+                              verbose_name='Владелец')
     executor = models.ManyToManyField(Profile, 
                               through='UserTasks',
                               )
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
-    check = models.BooleanField(default=False)
+    check = models.BooleanField(default=False,
+                                verbose_name='Выполнено')
     status = models.ForeignKey(Status, 
-                               on_delete=models.CASCADE)
+                               on_delete=models.CASCADE,
+                               verbose_name='Статус')
+
+
+    class Meta:
+        verbose_name = 'задачу'
+        verbose_name_plural = 'Задачи'
+
+    def __str__(self):
+        return self.title 
 
 class UserTasks(models.Model):
 
-    user = models.ForeignKey(Profile, on_delete=models.CASCADE)
-    tasks = models.ForeignKey(Task, on_delete=models.CASCADE)
+    user = models.ForeignKey(Profile, 
+                             on_delete=models.CASCADE,
+                             verbose_name='Пользователь')
+    tasks = models.ForeignKey(Task, 
+                              on_delete=models.CASCADE,
+                              verbose_name='Задачи')
+
+
 
