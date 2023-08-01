@@ -1,4 +1,3 @@
-from django.conf import settings
 from django.db import models
 from django.contrib.auth.models import User
 from django.db.models.signals import post_save
@@ -10,7 +9,7 @@ from django.dispatch import receiver
 class Profile(models.Model):
     user = models.OneToOneField(User, 
                                 on_delete=models.CASCADE,
-                                primary_key = True)
+                                )
 
 
     @receiver(post_save, sender=User)
@@ -47,26 +46,32 @@ class Task(models.Model):
     title = models.CharField(max_length=150, 
                              blank=True,
                              verbose_name='Заголовок')
-    description = models.TextField(verbose_name='Описание')
+    description = models.TextField(verbose_name='Описание',
+                                   blank=True)
     owner = models.ForeignKey(Profile, 
                               on_delete=models.CASCADE,
                               related_name='owner',
                               verbose_name='Владелец')
+    status = models.ForeignKey(Status, 
+                               on_delete=models.CASCADE,
+                               verbose_name='Статус')
     executor = models.ManyToManyField(Profile, 
                               through='UserTasks',
+                              verbose_name='Исполнитель',
+                              blank=True
                               )
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
     check = models.BooleanField(default=False,
                                 verbose_name='Выполнено')
-    status = models.ForeignKey(Status, 
-                               on_delete=models.CASCADE,
-                               verbose_name='Статус')
+    published = models.BooleanField(default=False,
+                                verbose_name='Публикация')
 
 
     class Meta:
         verbose_name = 'задачу'
         verbose_name_plural = 'Задачи'
+        ordering = ['-created_at',]
 
     def __str__(self):
         return self.title 

@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+
+{%block title%} {{title}} {%endblock%}
+
+{% block content %}
+
+
+{% for obj in object_list %}
+    {% if obj.published %}
+    <div>
+        <p>Заголовок: {{obj.title}}</p>
+        <p>Owner: {{obj.owner}}</p>
+        <p>Описание</p>
+        <p>{{obj.description}}</p>
+        <small>Создано: {{obj.created_at}}</small>
+        <small>Обновлено: {{object.updated_at}}</small>
+        <p><a href="{%url 'task_detail' obj.pk%}">Перейти</a></p>
+
+    </div>
+
+
+    {% endif %}
+{% endfor %}
+    
+
+{% endblock %}

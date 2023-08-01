@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+
+{%block title %} {{title}} {%endblock%}
+
+{%block content%} 
+
+{{object.title}}
+{{object.owner}}
+{{object.published}}
+{{object.created_at}}
+
+<ul>
+    {%for executor in object.executor.all%}
+    <li>{{executor}}</li>
+    {%endfor%}
+</ul>
+
+
+
+
+{%endblock%}
