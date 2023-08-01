@@ -1,4 +1,5 @@
 from typing import Any
+from django.db.models.query import QuerySet
 from django.http import HttpRequest, HttpResponse, HttpResponseForbidden
 from django.shortcuts import render
 from django.views import View
@@ -22,11 +23,19 @@ class TaskListView(ListView):
     model = Task
     template_name='task/list_tasks.html'
     paginate_by = 10
+    queryset = Task.objects.all()
+    ordering = ['id']
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['title'] = 'Список задач'
         return context
+    
+
+    def get_ordering(self):
+        ordering = self.request.GET.get('sort')
+        print(ordering)
+        return ordering
     
 
 class TaskDetailView(DetailView):
@@ -56,6 +65,7 @@ def create_task(request):
                 )
             else:
                 return HttpResponse('Ошибка!')
+            context['user'] = request.user.id
 
                 
 

@@ -4,16 +4,28 @@
 
 {%block content%} 
 
-{{object.title}}
-{{object.owner}}
-{{object.published}}
-{{object.created_at}}
 
-<ul>
+
+
+<div class="card" style="width: 30rem;">
+<div class="card-body" style="text-align: center;">
+    <h5 class="card-title">{{object.title}}</h5>
+    <h6 class="card-subtitle mb-2 text-body-secondary">Owner: {{object.owner}}</h6>
+    <h6 class="card-subtitle mb-2 text-body-secondary">Created at: {{object.created_at}}</h6>
+    <p class="card-text">{{object.description}}</p>
+    
+    <ul>
     {%for executor in object.executor.all%}
     <li>{{executor}}</li>
     {%endfor%}
-</ul>
+    </ul>
+
+</div>
+</div>
+
+
+
+
 
 
 
