@@ -1,6 +1,4 @@
-{% extends 'base.html' %}
-
-{%block title%} {{title}} {%endblock%}
+{%extends 'base.html'%}
 
 {% block content %}
 
@@ -10,25 +8,23 @@
         <thead>
           <tr>
             <th scope="col">#</th>
-            <th scope="col">Title</th>
-            <th scope="col">Owner</th>
-            <th scope="col">Status</th>
-            <th scope="col">Created at</th>
+            <th scope="col">User name</th>
+            <th scope="col">First name</th>
+            <th scope="col">Last name</th>
+            <th scope="col">email</th>
             <th scope="col">Url</th>
           </tr>
         </thead>
         <tbody>
     {% for obj in object_list %}
-        {% if obj.published %}
           <tr>
             <th scope="row">{{obj.id}}</th>
-            <td>{{obj.title}}</td>
-            <td>{{obj.owner}}</td>
-            <td>{{obj.status}}</td>
-            <td>{{obj.created_at}}</td>
-            <td><a href="{%url 'task_detail' obj.pk%}">Click!</a> {% if obj.owner_id == request.user.id %}<a href="#">Edit</a> {%endif%}</td>
+            <td>{{obj.user.username}}</td>
+            <td>{{obj.user.first_name}}</td>
+            <td>{{obj.user.last_name}}</td>
+            <td>{{obj.user.email}}</td>
+            <td><a href="{%url 'profile_view' obj.pk%}">Click!</a></td>
           </tr>
-          {% endif %}
     {% endfor %}
         </tbody>
       </table>
@@ -50,7 +46,5 @@
             {% endif %}
         </span>
     </div>
-
-    
 
 {% endblock %}

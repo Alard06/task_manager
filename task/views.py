@@ -1,7 +1,7 @@
 from typing import Any
 from django.db.models.query import QuerySet
 from django.http import HttpRequest, HttpResponse, HttpResponseForbidden
-from django.shortcuts import render
+from django.shortcuts import redirect, render
 from django.views import View
 from django.views.generic import ListView, DetailView, CreateView
 from task.forms import CreateTaskForm
@@ -31,10 +31,11 @@ class TaskListView(ListView):
         context['title'] = 'Список задач'
         return context
     
-
     def get_ordering(self):
         ordering = self.request.GET.get('sort')
-        print(ordering)
+        sort_owner = self.request.GET.get('owner')
+        if sort_owner:
+            ordering = self.request.GET.get('owner')
         return ordering
     
 
@@ -43,7 +44,6 @@ class TaskDetailView(DetailView):
     model = Task
     template_name='task/detail_task.html'
   
-
 
 def create_task(request):
 
@@ -63,10 +63,8 @@ def create_task(request):
                     published=form.cleaned_data.get('published'),
                     check = form.cleaned_data.get('check')
                 )
+                return redirect('tasks')
             else:
                 return HttpResponse('Ошибка!')
-            context['user'] = request.user.id
-
-                
 
     return render(request, 'task/create_task.html', context)

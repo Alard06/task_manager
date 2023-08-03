@@ -44,6 +44,7 @@ INSTALLED_APPS = [
     'bootstrap5',
     
     'task',
+    'user',
 
 ]
 
