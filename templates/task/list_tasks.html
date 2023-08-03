@@ -25,7 +25,7 @@
             <td>{{obj.title}}</td>
             <td>{{obj.owner}}</td>
             <td>{{obj.status}}</td>
-            <td>{{obj.created_at}}</td>
+            <td>{{obj.created_at|date}}</td>
             <td><a href="{%url 'task_detail' obj.pk%}">Click!</a> {% if obj.owner_id == request.user.id %}<a href="#">Edit</a> {%endif%}</td>
           </tr>
           {% endif %}

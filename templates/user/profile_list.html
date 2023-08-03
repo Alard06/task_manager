@@ -3,7 +3,20 @@
 {% block content %}
 
 
+
 <div>
+
+    <nav class="navbar bg-body-tertiary">
+        <div class="container-fluid">
+
+          <form class="d-flex" role="search">
+            <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" name='search'>
+            <button class="btn btn-outline-success" type="submit">Search</button>
+          </form>
+
+        </div>
+      </nav>
+
     <table class="table">
         <thead>
           <tr>
@@ -12,7 +25,7 @@
             <th scope="col">First name</th>
             <th scope="col">Last name</th>
             <th scope="col">email</th>
-            <th scope="col">Url</th>
+            <th scope="col">Account</th>
           </tr>
         </thead>
         <tbody>
@@ -22,8 +35,10 @@
             <td>{{obj.user.username}}</td>
             <td>{{obj.user.first_name}}</td>
             <td>{{obj.user.last_name}}</td>
-            <td>{{obj.user.email}}</td>
-            <td><a href="{%url 'profile_view' obj.pk%}">Click!</a></td>
+            <td>{% if obj.check_email %}{{obj.user.email}}{%else%}Скрыто{%endif%}</td>
+            <td>
+                <a href="{%url 'profile_view' obj.pk%}">Click!</a>
+            </td>
           </tr>
     {% endfor %}
         </tbody>

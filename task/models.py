@@ -10,6 +10,8 @@ class Profile(models.Model):
     user = models.OneToOneField(User, 
                                 on_delete=models.CASCADE,
                                 )
+    check_email = models.BooleanField(default=False, 
+                                      verbose_name='Показывать email')
 
 
     @receiver(post_save, sender=User)
@@ -24,6 +26,7 @@ class Profile(models.Model):
     class Meta:
         verbose_name = 'Пользователь'
         verbose_name_plural = 'Пользователи'
+        ordering = ['id']
 
 
     
