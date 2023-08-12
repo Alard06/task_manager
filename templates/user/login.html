@@ -2,6 +2,13 @@
 
 {% block content %}
 
-  log in
+<div>
+	<form method="POST" class="form-group">
+	{% csrf_token %}
+	{{ form.as_p }}
+	<button type="submit" class="btn btn-success">Log in</button>
+    </form>
+</div>
+
 
 {% endblock %}

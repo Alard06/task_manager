@@ -1,11 +1,13 @@
+from django.contrib.auth import logout
 from django.contrib.auth.models import User
-from django.shortcuts import get_object_or_404, render, redirect
+from django.contrib.auth.views import LoginView
+from django.shortcuts import render, redirect
 from django.urls import reverse_lazy
 from django.views.generic import DetailView, ListView, CreateView
 from django.db.models import Q
 
 from task.models import Profile
-from user.forms import UserCreateForm
+from user.forms import RegisterUserForm
 
 
 class ProfileView(DetailView):
@@ -32,16 +34,17 @@ class ProfileListView(ListView):
 
 class ProfileCreateView(CreateView):
     model = User
+    form_class = RegisterUserForm
     template_name = 'user/register.html'
-    fields = ['username', '2']
-
-    def form_valid(self, form):
-        form.instance.user = self.request.user
-        return super().form_valid(form)
 
     success_url = reverse_lazy('index')
 
 
+class ProfileLoginView(LoginView):
+    model = User
+    template_name = 'user/login.html'
 
-def profile_login(request):
-    return render(request, 'user/login.html')
+
+def logout_view(request):
+    logout(request)
+    return redirect('index')
