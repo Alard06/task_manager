@@ -10,8 +10,8 @@ from task.models import Task
 
 # Create your views here.
 
+
 class IndexView(View):
-    
     def get(self, request, *args, **kwargs):
         template = 'task/index.html'
         context = {'title': 'Менеджер задач'}

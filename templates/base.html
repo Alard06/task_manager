@@ -24,12 +24,23 @@
               <li class="nav-item">
                 <a class="nav-link" href="{% url 'tasks' %}">Tasks</a>
               </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'profile_list'%}">List users</a>
+                </li>
+                {% if user.is_authenticated %}
               <li class="nav-item">
-                <a class="nav-link" href="{% url 'profile_view' request.user.pk%}">Profile</a>
+                <a class="nav-link" href="">Profile</a>
               </li>
-              <li class="nav-item">
-                <a class="nav-link" href="{% url 'profile_list'%}">List users</a>
-              </li>
+                {%else%}
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'profile_login' %}">Login</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'profile_register' %}">Register</a>
+                </li>
+                {% endif %}
+
+
             </ul>
           </div>
         </div>

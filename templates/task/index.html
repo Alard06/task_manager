@@ -2,6 +2,10 @@
 {%block title%} {{ title }} {%endblock%}
 {% block content %}
 
-This index.html
+{% if user.is_authenticated %}
+    <p>Welcome, {{ user.username }}. Thanks for logging in.</p>
+{% else %}
+    <p>Welcome, new user. Please log in.</p>
+{% endif %}
 
 {% endblock %}
