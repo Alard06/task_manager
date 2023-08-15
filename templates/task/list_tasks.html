@@ -5,7 +5,10 @@
 {% block content %}
 
 
+
 <div>
+    <a href="{% url 'create_task' %}">Создать задачу</a>
+
     <table class="table">
         <thead>
           <tr>
@@ -19,7 +22,7 @@
         </thead>
         <tbody>
     {% for obj in object_list %}
-        {% if obj.published %}
+        {% if obj.published or obj.owner.pk == request.user.pk %}
           <tr>
             <th scope="row">{{obj.id}}</th>
             <td>{{obj.title}}</td>

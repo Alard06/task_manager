@@ -36,7 +36,6 @@ class ProfileCreateView(CreateView):
     model = User
     form_class = RegisterUserForm
     template_name = 'user/register.html'
-
     success_url = reverse_lazy('index')
 
 

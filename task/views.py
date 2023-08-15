@@ -1,14 +1,10 @@
-from typing import Any
-from django.db.models.query import QuerySet
-from django.http import HttpRequest, HttpResponse, HttpResponseForbidden
+from django.http import HttpResponse
 from django.shortcuts import redirect, render
 from django.views import View
-from django.views.generic import ListView, DetailView, CreateView
+from django.views.generic import ListView, DetailView
 from task.forms import CreateTaskForm
 
 from task.models import Task
-
-# Create your views here.
 
 
 class IndexView(View):
@@ -58,10 +54,10 @@ def create_task(request):
                 Task.objects.create(
                     owner_id=request.user.id,
                     title=form.cleaned_data.get('title'),
-                    description = form.cleaned_data.get('description'),
-                    status = form.cleaned_data.get('status'),
+                    description=form.cleaned_data.get('description'),
+                    status=form.cleaned_data.get('status'),
                     published=form.cleaned_data.get('published'),
-                    check = form.cleaned_data.get('check')
+                    check=form.cleaned_data.get('check')
                 )
                 return redirect('tasks')
             else:

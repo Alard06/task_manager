@@ -28,8 +28,6 @@ class Profile(models.Model):
         ordering = ['id']
 
 
-    
-
 class Status(models.Model):
     # Статусы
     name = models.CharField(max_length=120, 
@@ -60,8 +58,7 @@ class Task(models.Model):
     executor = models.ManyToManyField(Profile, 
                               through='UserTasks',
                               verbose_name='Исполнитель',
-                              blank=True
-                              )
+                              blank=True)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
     check = models.BooleanField(default=False,
@@ -78,6 +75,7 @@ class Task(models.Model):
     def __str__(self):
         return self.title 
 
+
 class UserTasks(models.Model):
 
     user = models.ForeignKey(Profile, 
@@ -86,6 +84,3 @@ class UserTasks(models.Model):
     tasks = models.ForeignKey(Task, 
                               on_delete=models.CASCADE,
                               verbose_name='Задачи')
-
-
-

@@ -2,7 +2,7 @@ from django.contrib import admin
 
 from task.models import Status, Task, UserTasks, Profile
 
-# Register your models here.
+
 class TaskInlines(admin.TabularInline):
     model = UserTasks
     extra = 0
@@ -16,8 +16,8 @@ class TaskAdmin(admin.ModelAdmin):
 
 @admin.register(Status)
 class StatusAdmin(admin.ModelAdmin):
-
     pass
+
 
 @admin.register(Profile)
 class User(admin.ModelAdmin):

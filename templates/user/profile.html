@@ -2,6 +2,19 @@
 
 {% block content %}
 
-Profile!!
-{{object.user}}
+<div>
+
+    <div>
+        <p>Username: {{object.user.username}}</p>
+        <p>First name: {{object.user.first_name}}</p>
+        <p>Last name: {{object.user.last_name}}</p>
+        <p>Email: {{object.user.email}}</p>
+        <p>Registration {{object.user.date_joined}}</p>
+    </div>
+    <div>
+        <p>Your tasks:</p>
+
+    </div>
+
+</div>
 {% endblock %}
