@@ -18,7 +18,6 @@ class Profile(models.Model):
         if created:
             Profile.objects.create(user=instance)
 
-
     def __str__(self) -> str:
         return self.user.username
 
@@ -56,15 +55,15 @@ class Task(models.Model):
                                on_delete=models.CASCADE,
                                verbose_name='Статус')
     executor = models.ManyToManyField(Profile, 
-                              through='UserTasks',
-                              verbose_name='Исполнитель',
-                              blank=True)
+                                      through='UserTasks',
+                                      verbose_name='Исполнитель',
+                                      blank=True)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
     check = models.BooleanField(default=False,
                                 verbose_name='Выполнено')
     published = models.BooleanField(default=False,
-                                verbose_name='Публикация')
+                                    verbose_name='Публикация')
 
 
     class Meta:

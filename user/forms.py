@@ -11,3 +11,10 @@ class RegisterUserForm(UserCreationForm):
         fields = ('username', 'first_name', 'last_name',
                   'password1', 'password2')
 
+
+class UpdateCheckEmail(ModelForm):
+
+    class Meta:
+        model = Profile
+        fields = ['check_email', ]
+

@@ -12,9 +12,19 @@
         <p>Registration {{object.user.date_joined}}</p>
     </div>
     <div>
-        <p>Your tasks:</p>
+        <form method="POST" class="form-group">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit" class="btn btn-success">
+            {% if request.profile.check_email %}Check email
+            {% else %}
+            Uncheck email
+            {%endif%}
 
-    </div>
+        </button>
+    </form>
+</div>
+
 
 </div>
 {% endblock %}
