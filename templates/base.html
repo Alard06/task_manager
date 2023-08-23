@@ -1,3 +1,4 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -5,8 +6,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{%block title %} {% endblock %}</title>
     {% load bootstrap5 %}
+
     {% bootstrap_css %}
     {% bootstrap_javascript %}
+    <link rel="stylesheet" href="{% static 'style/style.css' %}">
 </head>
 <body>
 
@@ -48,11 +51,9 @@
           </div>
         </div>
       </nav>
+<section>
+    {% block content %}{% endblock %}
+</section>
 
-    <div class="d-flex justify-content-center mt-4">
-    {% block content %}
-
-    {%endblock%}
-    </div>
 </body>
 </html>
