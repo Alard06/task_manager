@@ -34,9 +34,13 @@
               <li class="nav-item">
                 <a class="nav-link" href="{% url 'profile_view' request.user.pk%}">Profile</a>
               </li>
+              <li class="nav-item">
+                <a class="nav-link" href="{%url 'profile_tasks'%}">My tasks</a>
+              </li>
                 <li class="nav-item">
                 <a class="nav-link" href="{% url 'logout' %}">Logout</a>
               </li>
+
                 {%else%}
                 <li class="nav-item">
                     <a class="nav-link" href="{% url 'profile_login' %}">Login</a>

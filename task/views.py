@@ -56,10 +56,10 @@ class TaskListView(ListView):
 class TaskDetailView(DetailView):
 
     model = Task
-    template_name='task/detail_task.html'
+    template_name = 'task/detail_task.html'
 
 
-class TaskEdit(UpdateView):
+class TaskEditView(UpdateView):
     model = Task
     fields = ['owner', 'executor',
               'description', 'status',
@@ -68,11 +68,20 @@ class TaskEdit(UpdateView):
     success_url = '/tasks'
 
 
-class TaskDelete(DeleteView):
+class TaskDeleteView(DeleteView):
     model = Task
     template_name = 'task/confirm_delete.html'
     success_url = reverse_lazy('tasks')
 
+
+class TaskProfileView(ListView):
+    model = Task
+    template_name = 'task/profile_task.html'
+
+    # def get_context_data(self, *, object_list=None, **kwargs):
+    #     context = super().get_context_data()
+    #     context['obj_list'] = Task.objects.filter(pk=self.request.user.pk)
+    #     return context
 
 
 def create_task(request):

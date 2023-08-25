@@ -39,7 +39,8 @@
             <td>{{obj.status}}</td>
             <td>{{obj.created_at|date}}</td>
             <td><a href="{%url 'task_detail' obj.pk%}">Click!</a> {% if obj.owner_id == request.user.id %}<a
-                    href="{% url 'edit_task' obj.id%}">Edit</a> {%endif%}</td>
+                    href="{% url 'edit_task' obj.id%}">Edit</a>
+                <a href="{% url 'delete_task' obj.pk%}">Delete</a>{%endif%}</td>
           </tr>
           {% endif %}
     {% endfor %}

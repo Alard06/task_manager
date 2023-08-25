@@ -1,0 +1,34 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+    <table class="table">
+        <thead>
+          <tr>
+            <th scope="col">#</th>
+            <th scope="col">Title</th>
+            <th scope="col">Owner</th>
+            <th scope="col">Status</th>
+            <th scope="col">Created at</th>
+            <th scope="col">Url</th>
+          </tr>
+        </thead>
+        <tbody>
+    {% for obj in object_list %}
+    {% if obj.owner_id == request.user.id %}
+          <tr>
+            <th scope="row">{{obj.id}}</th>
+            <td>{{obj.title}}</td>
+            <td>{{obj.owner}}</td>
+            <td>{{obj.status}}</td>
+            <td>{{obj.created_at|date}}</td>
+            <td><a href="{%url 'task_detail' obj.pk%}">Click!</a> <a
+                    href="{% url 'edit_task' obj.id%}">Edit</a>
+                <a href="{% url 'delete_task' obj.pk%}">Delete</a></td>
+          </tr>
+    {% endif %}
+    {% endfor %}
+        </tbody>
+      </table>
+
+{% endblock %}
