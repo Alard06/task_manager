@@ -65,11 +65,10 @@ class Task(models.Model):
     published = models.BooleanField(default=False,
                                     verbose_name='Публикация')
 
-
     class Meta:
         verbose_name = 'задачу'
         verbose_name_plural = 'Задачи'
-        ordering = ['id',]
+        ordering = ['id', ]
 
     def __str__(self):
         return self.title 

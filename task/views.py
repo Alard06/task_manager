@@ -1,7 +1,9 @@
+from django.db.models import Q
 from django.http import HttpResponse
-from django.shortcuts import redirect, render
+from django.shortcuts import redirect, render, get_object_or_404
+from django.urls import reverse_lazy
 from django.views import View
-from django.views.generic import ListView, DetailView
+from django.views.generic import ListView, DetailView, UpdateView, DeleteView
 from task.forms import CreateTaskForm
 
 from task.models import Task
@@ -33,17 +35,48 @@ class TaskListView(ListView):
         if sort_owner:
             ordering = self.request.GET.get('owner')
         return ordering
-    
+
+    def get_queryset(self):
+        query = self.request.GET.get('search')
+        if query:
+            try:
+                object_list = Task.objects.filter(
+                    Q(title=query) |
+                    Q(owner__user__username=query) |
+                    Q(pk=query))
+            except ValueError:
+                object_list = Task.objects.filter(
+                    Q(title=query) |
+                    Q(owner__user__username=query))
+        else:
+            object_list = Task.objects.all()
+        return object_list
+
 
 class TaskDetailView(DetailView):
 
     model = Task
     template_name='task/detail_task.html'
-  
+
+
+class TaskEdit(UpdateView):
+    model = Task
+    fields = ['owner', 'executor',
+              'description', 'status',
+              'published', 'check']
+    template_name = 'task/edit_task.html'
+    success_url = '/tasks'
+
+
+class TaskDelete(DeleteView):
+    model = Task
+    template_name = 'task/confirm_delete.html'
+    success_url = reverse_lazy('tasks')
+
+
 
 def create_task(request):
 
-    context = {}
     form = CreateTaskForm
     context = {'form': form}
 

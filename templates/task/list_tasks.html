@@ -4,7 +4,16 @@
 
 {% block content %}
 
+    <nav class="navbar bg-body-tertiary">
+        <div class="container-fluid">
 
+          <form class="d-flex" role="search">
+            <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" name='search'>
+            <button class="btn btn-outline-success" type="submit">Search</button>
+          </form>
+
+        </div>
+      </nav>
 
 <div>
     <a href="{% url 'create_task' %}">Создать задачу</a>
@@ -29,7 +38,8 @@
             <td>{{obj.owner}}</td>
             <td>{{obj.status}}</td>
             <td>{{obj.created_at|date}}</td>
-            <td><a href="{%url 'task_detail' obj.pk%}">Click!</a> {% if obj.owner_id == request.user.id %}<a href="#">Edit</a> {%endif%}</td>
+            <td><a href="{%url 'task_detail' obj.pk%}">Click!</a> {% if obj.owner_id == request.user.id %}<a
+                    href="{% url 'edit_task' obj.id%}">Edit</a> {%endif%}</td>
           </tr>
           {% endif %}
     {% endfor %}
@@ -53,7 +63,5 @@
             {% endif %}
         </span>
     </div>
-
-    
 
 {% endblock %}

@@ -5,6 +5,7 @@
 <div class="container">
 
     <div class="data-profile col-9">
+        <p>{{tasks.owner}}</p>
         <br><h3>Your profile</h3> <br>
         <p><i>Username:</i> {{object.user.username}}</p>
         <p><i>First name:</i> {{object.user.first_name}}</p>
@@ -14,19 +15,8 @@
         <form method="POST" class="form-group">
             {% csrf_token %}
             {{ form.as_p }}
-        <button type="submit" class="btn btn-success"> Commit </button>
+        <button type="submit" class="btn btn-success"> Save </button>
     </form>
     </div>
-    <div>
-        <div class="data-tasks-profile">
-            {% for item in tasks %}
-                <h3>{{item.title}}</h3>
-                <h5>{{item.owner}}</h5>
-                <small>{{item.created_at}}</small> <br>
-            {% endfor %}
-        </div>
-    </div>
-
-
 </div>
 {% endblock %}

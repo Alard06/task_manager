@@ -17,7 +17,8 @@ class ProfileView(FormMixin, DetailView):
     form_class = UpdateCheckEmail
 
     def get_success_url(self):
-        return reverse('profile_view', kwargs={'pk': self.object.pk})
+        return reverse('profile_view',
+                       kwargs={'pk': self.object.pk})
 
     def post(self, request, *args, **kwargs):
         self.object = self.get_object()
@@ -31,6 +32,7 @@ class ProfileView(FormMixin, DetailView):
         p = Profile.objects.get(pk=self.request.user.pk)
         p.check_email = form.cleaned_data['check_email']
         p.save()
+        print(type(form.cleaned_data['check_email']))
         print(f'{p.user.username}|{p.check_email}')
         return super().form_valid(form)
 
@@ -39,8 +41,10 @@ class ProfileView(FormMixin, DetailView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data()
-        context['tasks'] = Task.objects.filter(owner=self.request.user.pk)
+        tasks = Task.objects.filter(owner=self.request.user.pk)
+        context['tasks'] = tasks
         return context
+
 
 class ProfileListView(ListView):
     model = Profile
